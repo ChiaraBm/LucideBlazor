@@ -1,6 +1,6 @@
 ﻿<div align="center">
-<img alt="ShadcnBlazor Logo" src="https://raw.githubusercontent.com/ChiaraBm/LucideBlazor/refs/heads/main/LucideBlazor/logo.svg" width="120" />
-  <h1>ShadcnBlazor</h1>
+<img alt="LucideBlazor Logo" src="https://raw.githubusercontent.com/ChiaraBm/LucideBlazor/refs/heads/main/LucideBlazor/icon.svg" width="120" />
+  <h1>LucideBlazor</h1>
   <p><strong>A blazor port of the popular <a href="https://lucide.dev">lucide/ui</a> icon library.</strong></p>
 </div>
 
