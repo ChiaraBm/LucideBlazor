@@ -1,7 +1,7 @@
 ﻿<div align="center">
 <img alt="LucideBlazor Logo" src="https://raw.githubusercontent.com/ChiaraBm/LucideBlazor/refs/heads/main/LucideBlazor/icon.svg" width="120" />
   <h1>LucideBlazor</h1>
-  <p><strong>A blazor port of the popular <a href="https://lucide.dev">lucide/ui</a> icon library.</strong></p>
+  <p><strong>A blazor port of the popular <a href="https://lucide.dev">lucide</a> icon library.</strong></p>
 </div>
 
 ## What is LucideBlazor?
