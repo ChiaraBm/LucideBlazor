@@ -34,8 +34,8 @@ public class LucideIcon : ComponentBase
         builder.AddAttribute(3, nameof(IconBase.Fill), Fill);
         builder.AddAttribute(4, nameof(IconBase.Stroke), Stroke);
         builder.AddAttribute(5, nameof(IconBase.StrokeWidth), StrokeWidth);
-        builder.AddAttribute(6, nameof(IconBase.StrokeLineCap), StrokeLineCap.ToKebabCase());
-        builder.AddAttribute(7, nameof(IconBase.StrokeLineJoin), StrokeLineJoin.ToKebabCase());
+        builder.AddAttribute(6, nameof(IconBase.StrokeLineCap), StrokeLineCapExtensions.ToString(StrokeLineCap));
+        builder.AddAttribute(7, nameof(IconBase.StrokeLineJoin), StrokeLineJoinExtensions.ToString(StrokeLineJoin));
 
         if (Props is not null)
             builder.AddMultipleAttributes(8, Props);

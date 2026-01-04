@@ -38,8 +38,8 @@ public abstract class IconBase : IComponent
         AddIfNotInProps("fill", Fill);
         AddIfNotInProps("stroke", Stroke);
         AddIfNotInProps("stroke-width", StrokeWidth);
-        AddIfNotInProps("stroke-linecap", StrokeLineCap.ToKebabCase());
-        AddIfNotInProps("stroke-linejoin", StrokeLineJoin.ToKebabCase());
+        AddIfNotInProps("stroke-linecap", StrokeLineCapExtensions.ToString(StrokeLineCap));
+        AddIfNotInProps("stroke-linejoin", StrokeLineJoinExtensions.ToString(StrokeLineJoin));
 
         if (Props is not null)
             builder.AddMultipleAttributes(counter++, Props);
@@ -81,10 +81,22 @@ public abstract class IconBase : IComponent
                     StrokeWidth = parameter.Value is int i ? i : (double)parameter.Value;
                     break;
                 case nameof(StrokeLineCap):
-                    StrokeLineCap = (StrokeLineCap)parameter.Value;
+                    StrokeLineCap = parameter.Value switch
+                    {
+                        int capInt => (StrokeLineCap)capInt,
+                        string str => StrokeLineCapExtensions.FromString(str),
+                        StrokeLineCap capEnum => capEnum,
+                        _ => StrokeLineCap
+                    };
                     break;
                 case nameof(StrokeLineJoin):
-                    StrokeLineJoin = (StrokeLineJoin)parameter.Value;
+                    StrokeLineJoin = parameter.Value switch
+                    {
+                        int joinInt => (StrokeLineJoin)joinInt,
+                        string str => StrokeLineJoinExtensions.FromString(str),
+                        StrokeLineJoin joinEnum => joinEnum,
+                        _ => StrokeLineJoin
+                    };
                     break;
                 default:
                     Props ??= new Dictionary<string, object>();
