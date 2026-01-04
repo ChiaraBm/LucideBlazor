@@ -1,70 +1,50 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using LucideBlazor.Extensions;
 
 namespace LucideBlazor;
 
-public abstract class IconBase : IComponent
+public abstract class IconBase : ComponentBase
 {
     [Parameter] public string? ClassName { get; set; }
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public string Fill { get; set; } = "none";
+    [Parameter] public string Stroke { get; set; } = "white";
+    [Parameter] public double StrokeWidth { get; set; } = 2;
+    [Parameter] public StrokeLineCap StrokeLineCap { get; set; } = StrokeLineCap.Round;
+    [Parameter] public StrokeLineJoin StrokeLineJoin { get; set; } = StrokeLineJoin.Round;
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object?>? Props { get; set; }
-    
-    private RenderHandle Handle;
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public void Attach(RenderHandle renderHandle)
+    protected abstract string SvgContent { get; }
+
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        Handle = renderHandle;
-    }
-
-    protected void RenderIcon(RenderTreeBuilder builder, string svgContent)
-    {
-        var counter = 0;
-
         builder.OpenElement(0, "svg");
 
-        builder.AddAttribute(counter++, "class", ClassName);
-
-        if (Props != null)
+        var attributes = new Dictionary<string, object>
         {
-            foreach (var attribute in Defaults.DefaultAttributes)
-            {
-                if (!Props.ContainsKey(attribute.Key))
-                    builder.AddAttribute(counter++, attribute.Key, attribute.Value);
-            }
+            { "xmlns", "http://www.w3.org/2000/svg" },
+            { "width", Size },
+            { "height", Size },
+            { "viewBox", "0 0 24 24" },
+            { "fill", Fill },
+            { "stroke", Stroke },
+            { "stroke-width", StrokeWidth },
+            { "stroke-linecap", StrokeLineCapExtensions.ToString(StrokeLineCap) },
+            { "stroke-linejoin", StrokeLineJoinExtensions.ToString(StrokeLineJoin) }
+        };
 
-            builder.AddMultipleAttributes(counter++, Props);
-        }
-        else
-            builder.AddMultipleAttributes(counter++, Defaults.DefaultAttributes);
+        if (ClassName is not null)
+            attributes["class"] = ClassName;
 
-        builder.AddMarkupContent(counter++, svgContent);
+        if (AdditionalAttributes is not null)
+            foreach (var attr in AdditionalAttributes)
+                attributes[attr.Key] = attr.Value;
 
+        builder.AddMultipleAttributes(1, attributes);
+        builder.AddMarkupContent(2, SvgContent);
         builder.CloseElement();
-    }
-
-    protected abstract void HandleRender(RenderTreeBuilder builder);
-
-    public Task SetParametersAsync(ParameterView parameters)
-    {
-        foreach (var parameter in parameters)
-        {
-            switch (parameter.Name)
-            {
-                case nameof(ClassName):
-                    ClassName = (string)parameter.Value;
-                    break;
-                
-                default:
-                    Props ??= new Dictionary<string, object?>();
-                    Props[parameter.Name] = parameter.Value;
-                    
-                    break;
-            }
-        }
-        
-        Handle.Render(HandleRender);
-
-        return Task.CompletedTask;
     }
 }

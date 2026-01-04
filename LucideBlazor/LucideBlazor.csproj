@@ -19,7 +19,6 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
-
     <ItemGroup>
         <SupportedPlatform Include="browser"/>
     </ItemGroup>
@@ -29,14 +28,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LucideBlazor.Generator\LucideBlazor.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\LucideBlazor.Generator\LucideBlazor.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\"/>
         <None Include="icon.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <AdditionalFiles Include="../lucide/icons/*.svg">
             <Link>Icons\%(Filename)%(Extension)</Link>
