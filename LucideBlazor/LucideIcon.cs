@@ -10,7 +10,7 @@ public class LucideIcon : ComponentBase
     [Parameter] public string? ClassName { get; set; }
     [Parameter] public int Size { get; set; } = 24;
     [Parameter] public string Fill { get; set; } = "none";
-    [Parameter] public string Stroke { get; set; } = "currentColor";
+    [Parameter] public string Stroke { get; set; } = "white";
     [Parameter] public double StrokeWidth { get; set; } = 2;
     [Parameter] public StrokeLineCap StrokeLineCap { get; set; } = StrokeLineCap.Round;
     [Parameter] public StrokeLineJoin StrokeLineJoin { get; set; } = StrokeLineJoin.Round;
