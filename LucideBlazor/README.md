@@ -1,21 +1,51 @@
-﻿## What is LucideBlazor?
+﻿# LucideBlazor
 
-LucideBlazor is a port of the popular lucide icon library which contains a lot of open source icons. This blazor port
-is inspired by the react version of lucide and has the following features
-
-- **Performance:** All icon components are plain and sealed `IComponent` deriving classes so blazor doesnt need to process the lifecyle on these components.
-    The icon contents are baked into the class constants
-- **Modern:**: With the use of incremental source generators the classes representing the components are generated directly out of the lucide repository
-- **Small** Using the IL-Trim feature only used components are published in the final build of your app when publishing it with trimming enabled 
-
+A Blazor port of the [Lucide](https://lucide.dev) icon library. Clean, consistent icons that just work.
 
 ## Installation
 
-To install LucideBlazor just open your terminal or use the IDEs nuget package manager to install the [nuget package](https://www.nuget.org/packages/LucideBlazor)
-````shell
+```shell
 dotnet add package LucideBlazor
-````
+```
 
+## Usage
+
+Use strongly typed components when you know which icon you need:
+
+```razor
+<HomeIcon Size="32" Stroke="blue" />
+<SearchIcon ClassName="my-icon" />
+```
+
+Or use dynamic lookup when you need flexibility:
+
+```razor
+<LucideIcon Name="user" Size="24" />
+<LucideIcon Name="@iconName" />
+```
+
+## Customization
+
+All icons support these parameters:
+
+- `Size` - Width/height in pixels (default: 24)
+- `Stroke` - Stroke color (default: "currentColor")
+- `StrokeWidth` - Line thickness (default: 2)
+- `Fill` - Fill color (default: "none")
+- `StrokeLineCap` / `StrokeLineJoin` - Line styling
+- `ClassName` - CSS classes
+- Any additional HTML attributes
+
+```razor
+<HeartIcon Size="48" Stroke="red" Fill="pink" />
+<AlertCircleIcon ClassName="text-warning me-2" />
+<InfoIcon id="tooltip" data-toggle="tooltip" />
+```
+
+## How it works
+
+A source generator reads Lucide's SVG files at compile time and generates icon components with the SVG content baked in.
+This means fast rendering and small bundle sizes when you publish with trimming enabled.
 
 ## Contributing
 

@@ -72,7 +72,7 @@ namespace LucideBlazor
         if (string.IsNullOrEmpty(input))
             return input;
 
-        var parts = input.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+        var parts = input.Split(['-'], StringSplitOptions.RemoveEmptyEntries);
 
         var words = parts.Select(word => word.Length > 0
             ? char.ToUpper(word[0]) + word.Substring(1).ToLower()
